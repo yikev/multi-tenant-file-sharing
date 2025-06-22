@@ -41,8 +41,10 @@ class File(Base):
     filename = Column(String, nullable=False)
     filepath = Column(String, nullable=False)
     filesize_kb = Column(Integer, nullable=False)
+    thumbnail_path = Column(String, nullable=True)
     tags = Column(ARRAY(String))
     date_uploaded = Column(DateTime, default=datetime.utcnow)
+    date_created = Column(DateTime, default=datetime.utcnow)
 
     tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False)
     uploader_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))

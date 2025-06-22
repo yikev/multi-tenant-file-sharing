@@ -18,6 +18,8 @@ const Login = () => {
       localStorage.setItem('token', token); // ✅ Store token if needed
       console.log('Token:', token);
 
+      console.log('Login successful, navigating to dashboard...');
+
       navigate('/dashboard'); // ✅ Only navigate after success
     } catch (error) {
       console.error('Login failed', error);
