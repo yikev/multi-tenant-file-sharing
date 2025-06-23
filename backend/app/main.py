@@ -28,3 +28,12 @@ app.include_router(files.router, prefix="/files", tags=["files"])
 @app.get("/")
 def read_root():
     return {"message": "Multi-Tenant File Sharing Platform API"}
+
+@app.get("/debug-tables")
+def debug_tables():
+    from app.models import Tenant, User, File
+    return {
+        "tenants": Tenant.__table__.name,
+        "users": User.__table__.name,
+        "files": File.__table__.name,
+    }
