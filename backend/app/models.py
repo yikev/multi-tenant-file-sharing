@@ -16,6 +16,7 @@ class Tenant(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True, nullable=False)
+    description = Column(String, nullable=True)
 
     users = relationship("User", back_populates="tenant")
     files = relationship("File", back_populates="tenant")
