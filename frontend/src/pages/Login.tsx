@@ -1,11 +1,16 @@
+// Login.tsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+interface Props {
+  setToken: (token: string) => void;
+}
+
+const Login = ({ setToken }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // ✅ inside the component
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -15,12 +20,11 @@ const Login = () => {
       });
 
       const token = response.data.access_token;
-      localStorage.setItem('token', token); // ✅ Store token if needed
-      console.log('Token:', token);
+      localStorage.setItem('token', token);
+      setToken(token); // ✅ update App state
 
       console.log('Login successful, navigating to dashboard...');
-
-      navigate('/dashboard'); // ✅ Only navigate after success
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed', error);
     }

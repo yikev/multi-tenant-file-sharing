@@ -1,3 +1,4 @@
+// App.tsx
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Login from './pages/Login';
@@ -9,12 +10,12 @@ function App() {
 
   useEffect(() => {
     const saved = localStorage.getItem('token');
-    setToken(saved);
+    if (saved) setToken(saved);
   }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Login setToken={setToken} />} />
       <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/" />} />
       <Route path="/upload" element={<UploadPage />} />
     </Routes>
