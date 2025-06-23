@@ -1,7 +1,8 @@
+/// <reference types="node" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   server: {
     port: 5173,
@@ -9,11 +10,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  // 👇 Add this
   resolve: {
     alias: {
       '@': '/src',
     },
   },
-  base: '/',
-});
+  base: mode === 'production' ? '/multi-tenant-file-sharing/' : '/',
+}));
