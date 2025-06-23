@@ -40,3 +40,13 @@ class FileCreate(BaseModel):
     thumbnail_path: Optional[str] = None
     date_taken: Optional[datetime] = None
     gps_coordinates: Optional[str] = None
+
+class TenantCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+class Tenant(TenantCreate):
+    id: UUID
+
+    class Config:
+        orm_mode = True
