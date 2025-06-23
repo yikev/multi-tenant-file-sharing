@@ -13,7 +13,11 @@ Base.metadata.create_all(bind=engine)
 # CORS Middleware (optional, but helpful for frontend integration)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # adjust in production
+    allow_origins=[
+        "http://localhost:5173",                        # local dev
+        "http://127.0.0.1:5173",                        # alternate local dev
+        "https://yikev.github.io",                      # GitHub Pages
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,3 +41,4 @@ def debug_tables():
         "users": User.__table__.name,
         "files": File.__table__.name,
     }
+
