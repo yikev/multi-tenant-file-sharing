@@ -24,14 +24,16 @@ class FileCreate(BaseModel):
 class FileResponse(BaseModel):
     id: UUID4
     tenant_id: UUID4
-    file_name: str
-    file_path: str
-    file_size_kb: int
-    thumbnail_path: str | None = None
-    created_at: datetime
+    filename: str               # ✅ match SQLAlchemy model
+    filepath: str               # ✅ match SQLAlchemy model
+    filesize_kb: int            # ✅ match SQLAlchemy model
+    thumbnail_path: Optional[str] = None
+    date_uploaded: datetime
+    date_created: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True  # ✅ for Pydantic v2
+        # orm_mode = True       # ✅ if you're on Pydantic v1
 
 class FileCreate(BaseModel):
     file_name: str
