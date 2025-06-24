@@ -24,7 +24,7 @@ const UploadForm: React.FC = () => {
     formData.append('file_size_kb', Math.ceil(file.size / 1024).toString());
 
     try {
-      const res = await axios.post('http://localhost:8000/files/upload', formData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/files/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('token')}`, // if using JWT
