@@ -48,6 +48,7 @@ class File(Base):
     date_created = Column(DateTime, default=datetime.utcnow)
 
     tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False)
+    project_id = Column(String, nullable=True)
     uploader_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
 
     tenant = relationship("Tenant", back_populates="files")

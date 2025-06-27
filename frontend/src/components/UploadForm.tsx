@@ -1,10 +1,13 @@
 // src/components/UploadForm.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useProjectContext } from '../context/ProjectContext';
 
 const UploadForm: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
+
+  const { activeProjectId } = useProjectContext();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -22,6 +25,7 @@ const UploadForm: React.FC = () => {
     const formData = new FormData();
     formData.append('uploaded_file', file);
     formData.append('file_size_kb', Math.ceil(file.size / 1024).toString());
+    formData.append('project_id', activeProjectId);
 
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/files/upload`, formData, {

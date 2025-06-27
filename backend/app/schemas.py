@@ -24,6 +24,7 @@ class FileCreate(BaseModel):
 class FileResponse(BaseModel):
     id: UUID4
     tenant_id: UUID4
+    project_id: Optional[str] = None
     filename: str               # ✅ match SQLAlchemy model
     filepath: str               # ✅ match SQLAlchemy model
     filesize_kb: int            # ✅ match SQLAlchemy model
@@ -39,6 +40,7 @@ class FileCreate(BaseModel):
     file_name: str
     file_size_kb: int
     file_path: str
+    project_id: Optional[str] = None
     thumbnail_path: Optional[str] = None
     date_taken: Optional[datetime] = None
     gps_coordinates: Optional[str] = None
