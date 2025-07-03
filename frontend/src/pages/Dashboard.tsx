@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Button, Title, Text, Stack, Container } from '@mantine/core';
 
 const Dashboard = () => {
   const [user, setUser] = useState<{ user_id: string; role: string } | null>(null);
@@ -20,22 +21,20 @@ const Dashboard = () => {
       });
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <Text>Loading...</Text>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold mb-4">Welcome to your Dashboard</h2>
-      <p className="mb-2">User ID: {user.user_id}</p>
-      <p className="mb-4">Role: {user.role}</p>
+    <Container size="sm" py="xl">
+      <Stack>
+        <Title order={2}>Welcome to your Dashboard</Title>
+        <Text>User ID: {user.user_id}</Text>
+        <Text>Role: {user.role}</Text>
 
-      {/* Upload Button */}
-      <button
-        onClick={() => navigate('/upload')}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Upload New File
-      </button>
-    </div>
+        <Button color="blue" onClick={() => navigate('/upload')}>
+          Upload New File
+        </Button>
+      </Stack>
+    </Container>
   );
 };
 

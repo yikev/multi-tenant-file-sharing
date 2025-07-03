@@ -20,6 +20,21 @@ class Tenant(Base):
 
     users = relationship("User", back_populates="tenant")
     files = relationship("File", back_populates="tenant")
+    projects = relationship("Project", back_populates="tenant")  
+
+class Project(Base):
+    __tablename__ = "projects"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, unique=True, nullable=False)
+    description = Column(Text, nullable=True)
+    thumbnail_url = Column(String, nullable=True)
+    last_updated = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False)
+    tenant = relationship("Tenant", back_populates="projects")
+
+    files = relationship("File", back_populates="project")
 
 class User(Base):
     __tablename__ = "users"
@@ -48,11 +63,12 @@ class File(Base):
     date_created = Column(DateTime, default=datetime.utcnow)
 
     tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False)
-    project_id = Column(String, nullable=True)
+    project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=True)
     uploader_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
 
     tenant = relationship("Tenant", back_populates="files")
     uploader = relationship("User", back_populates="uploads")
+    project = relationship("Project", back_populates="files")
     logs = relationship("ActivityLog", back_populates="file")
 
 class ActivityLog(Base):

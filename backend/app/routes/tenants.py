@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app import models, schemas
 from app.database import get_db
 
-router = APIRouter(prefix="/tenants", tags=["Tenants"])
+router = APIRouter()
 
 @router.get("/")
 def list_tenants(current_user: dict = Depends(get_current_user)):

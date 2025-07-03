@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, tenants, files
+from app.routes import auth, tenants, files, projects
 from app.models import Base
 from app.database import engine
 
@@ -27,6 +27,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(tenants.router, prefix="/tenants", tags=["tenants"])
 app.include_router(files.router, prefix="/files", tags=["files"])
+app.include_router(projects.router, prefix="/projects", tags=["projects"])
 
 # Root endpoint
 @app.get("/")
@@ -35,10 +36,11 @@ def read_root():
 
 @app.get("/debug-tables")
 def debug_tables():
-    from app.models import Tenant, User, File
+    from app.models import Tenant, User, File, Project
     return {
         "tenants": Tenant.__table__.name,
         "users": User.__table__.name,
         "files": File.__table__.name,
+        "projects": Project.__table.name
     }
 

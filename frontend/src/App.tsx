@@ -1,25 +1,71 @@
-// App.tsx
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {
+  AppShell,
+  AppShellHeader,
+  AppShellNavbar,
+  AppShellMain,
+  Burger,
+  Text,
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import UploadPage from './pages/UploadForm';
+import { useState } from 'react';
 
-function App() {
+export default function App() {
   const [token, setToken] = useState<string | null>(null);
+  const [opened, { toggle }] = useDisclosure();
+  const location = useLocation();
 
-  useEffect(() => {
-    const saved = localStorage.getItem('token');
-    if (saved) setToken(saved);
-  }, []);
+  // Only show navbar on non-login routes
+  const showNavbar = location.pathname !== '/';
 
   return (
-    <Routes>
-      <Route path="/" element={<Login setToken={setToken} />} />
-      <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/" />} />
-      <Route path="/upload" element={<UploadPage />} />
-    </Routes>
+    <AppShell
+      header={{ height: 60 }}
+      navbar={
+        showNavbar
+          ? {
+              width: 200,
+              breakpoint: 'sm',
+              collapsed: { mobile: !opened },
+            }
+          : undefined
+      }
+      padding="md"
+    >
+      <AppShellHeader>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            height: '100%',
+            padding: '0 16px',
+          }}
+        >
+          {showNavbar && (
+            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          )}
+          <Text fw={700} ml={showNavbar ? 'md' : 0}>
+            Multi-Tenant File Sharing
+          </Text>
+        </div>
+      </AppShellHeader>
+
+      {showNavbar && (
+        <AppShellNavbar>
+          <Text>Navigation</Text>
+        </AppShellNavbar>
+      )}
+
+      <AppShellMain>
+        <Routes>
+          <Route path="/" element={<Login setToken={setToken} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/upload" element={<UploadPage />} />
+        </Routes>
+      </AppShellMain>
+    </AppShell>
   );
 }
-
-export default App;
