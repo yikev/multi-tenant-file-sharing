@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr, UUID4, HttpUrl
 from uuid import UUID
 from datetime import datetime
+from typing import List
 from typing import Optional
 
 class UserCreate(BaseModel):
@@ -24,11 +25,12 @@ class FileCreate(BaseModel):
 class FileResponse(BaseModel):
     id: UUID4
     tenant_id: UUID4
-    project_id: Optional[str] = None
+    project_id: Optional[UUID4] = None
     filename: str               
     filepath: str               
     filesize_kb: int            
     thumbnail_path: Optional[str] = None
+    tags: Optional[List[str]] = None
     date_uploaded: datetime
     date_created: datetime
 
@@ -67,4 +69,4 @@ class ProjectOut(BaseModel):
     last_updated: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

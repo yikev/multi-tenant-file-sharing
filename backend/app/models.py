@@ -58,6 +58,7 @@ class File(Base):
     filepath = Column(String, nullable=False)
     filesize_kb = Column(Integer, nullable=False)
     thumbnail_path = Column(String, nullable=True)
+    public_id = Column(String, nullable=True)
     tags = Column(ARRAY(String))
     date_uploaded = Column(DateTime, default=datetime.utcnow)
     date_created = Column(DateTime, default=datetime.utcnow)

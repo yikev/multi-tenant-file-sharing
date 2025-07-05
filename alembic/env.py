@@ -20,10 +20,7 @@ from app.config import settings  # Make sure this loads DATABASE_URL
 config = context.config
 
 # Inject your DB URL into Alembic config
-config.set_main_option(
-    "sqlalchemy.url",
-    "postgresql://multi_tenant_fs_user:uOCGvjHrrWJCkoKHDFJHtHSeAa0lQiSr@dpg-d1cehkidbo4c73cpqqqg-a.oregon-postgres.render.com/multi_tenant_fs"
-)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # Configure logging
 if config.config_file_name is not None:
