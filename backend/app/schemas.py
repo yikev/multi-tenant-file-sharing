@@ -14,14 +14,14 @@ class LoginRequest(BaseModel):
     password: str
 
 class FileSummary(BaseModel):
-    id: UUID
+    id: UUID4
     filename: str
     filepath: str
     filesize_kb: int
     date_uploaded: datetime
 
 class ProjectSummary(BaseModel):
-    id: UUID
+    id: UUID4
     name: str
     description: Optional[str]
     last_updated: datetime

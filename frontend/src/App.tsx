@@ -8,6 +8,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { NavbarSimpleColored } from './components/NavbarSimpleColored';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import UploadPage from './pages/UploadForm';
@@ -27,7 +28,7 @@ export default function App() {
       navbar={
         showNavbar
           ? {
-              width: 200,
+              width: 300,
               breakpoint: 'sm',
               collapsed: { mobile: !opened },
             }
@@ -54,8 +55,8 @@ export default function App() {
       </AppShellHeader>
 
       {showNavbar && (
-        <AppShellNavbar>
-          <Text>Navigation</Text>
+        <AppShellNavbar p={0}>
+          <NavbarSimpleColored />
         </AppShellNavbar>
       )}
 
