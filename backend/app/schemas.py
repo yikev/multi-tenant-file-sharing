@@ -13,6 +13,28 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
 
+class FileSummary(BaseModel):
+    id: UUID
+    filename: str
+    filepath: str
+    filesize_kb: int
+    date_uploaded: datetime
+
+class ProjectSummary(BaseModel):
+    id: UUID
+    name: str
+    description: Optional[str]
+    last_updated: datetime
+
+class DashboardResponse(BaseModel):
+    total_files: int
+    total_storage_kb: int
+    total_users: int
+    tenant_name: str
+    user_name: str
+    recent_files: List[FileSummary]
+    recent_projects: List[ProjectSummary]
+
 class FileCreate(BaseModel):
     file_name: str
     file_path: str 

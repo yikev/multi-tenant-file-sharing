@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, tenants, files, projects
+from app.routes import auth, tenants, files, projects, dashboard
 from app.models import Base
 from app.database import engine
 
@@ -28,6 +28,7 @@ app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(tenants.router, prefix="/tenants", tags=["tenants"])
 app.include_router(files.router, prefix="/files", tags=["files"])
 app.include_router(projects.router, prefix="/projects", tags=["projects"])
+app.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
 
 # Root endpoint
 @app.get("/")
